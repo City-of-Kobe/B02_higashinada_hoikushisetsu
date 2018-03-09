@@ -1,0 +1,1 @@
+# B02_higashinada_hoikushisetsu
