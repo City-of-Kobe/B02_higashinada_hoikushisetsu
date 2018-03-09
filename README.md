@@ -6,7 +6,7 @@
 
 1. クエリを実行する
 
-1. ArcGIS Mapタをクリックしarcgis onlineにログインし、レイヤの更新ボタンを押す
+1. ArcGIS Mapタブをクリックしarcgis onlineにログインし、レイヤの更新ボタンを押す
 
 ## 関連マップ
 [東灘区保育施設検索](https://kobecity.maps.arcgis.com/apps/webappviewer/index.html?id=d322259eacd641118a4ad12444d5179b)
