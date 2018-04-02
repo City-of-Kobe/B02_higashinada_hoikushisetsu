@@ -1,0 +1,12 @@
+﻿let
+    ソース = Excel.Workbook(Web.Contents("http://www.city.kobe.lg.jp/ward/kuyakusho/higashinada/images/uploads/higasinada-hoikushisetu.xlsx"), null, true),
+    テーブル1_Table = ソース{[Item="テーブル1",Kind="Table"]}[Data],
+    変更された型 = Table.TransformColumnTypes(テーブル1_Table,{{"開始時間_標準", type time}, {"終了時間_標準", type time}, {"開始時間_短時間", type time}, {"終了時間_短時間", type time}, {"延長保育_開始時間_朝", type time}, {"延長保育_終了時間_夕", type time}}),
+    変更された型1 = Table.TransformColumnTypes(変更された型,{{"開始時間_標準", type text}, {"終了時間_標準", type text}, {"開始時間_短時間", type text}, {"終了時間_短時間", type text}, {"延長保育_開始時間_朝", type text}, {"延長保育_終了時間_夕", type text}, {"ID", type text}}),
+    追加されたカスタム = Table.AddColumn(変更された型1, "x", each if([x手入力] <> null) then [x手入力] else [#"経度 (X)"]),
+    追加された条件列 = Table.AddColumn(追加されたカスタム, "y", each if [y手入力] = null then [#"緯度 (Y)"] else [y手入力] ),
+    削除された列 = Table.RemoveColumns(追加された条件列,{"x手入力", "y手入力", "経度 (X)", "緯度 (Y)"}),
+    フィルターされた行 = Table.SelectRows(削除された列, each ([公開] = null) and ([ID] <> null)),
+    #"名前が変更された列 " = Table.RenameColumns(フィルターされた行,{{"ID", "id"}})
+in
+    #"名前が変更された列 "
